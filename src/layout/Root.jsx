@@ -1,8 +1,9 @@
+import Register from "../pages/Register/Register";
 
 const Root = () => {
     return (
         <div>
-            <h1>Root</h1>
+            <Register/>
         </div>
     );
 };
