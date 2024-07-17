@@ -1,7 +1,10 @@
+import { useState } from "react";
 import useAxiosCommon from "../../hooks/useAxiosCommon";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const axiosCommon = useAxiosCommon();
+  const [error,setError]=useState('')
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -15,6 +18,7 @@ const Register = () => {
       pin,
       mobileNumber,
       email,
+      status:'pending'
     };
     // form validation
     if (!name || !pin || !mobileNumber || !email) {
@@ -23,6 +27,7 @@ const Register = () => {
     }
     if (pin.length !== 5 || isNaN(pin)) {
       console.log("PIN must be a 5-digit number");
+      setError("PIN must be a 5-digit number")
       return;
     }
 
@@ -33,31 +38,10 @@ const Register = () => {
     }
   };
 
-  // সার্ভারে ডেটা প্রেরণের জন্য প্রস্তুততা
-  //   const formData = { name, pin, mobileNumber, email };
 
-  //   try {
-  //     const response = await fetch('/api/register', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Registration failed');
-  //     }
-
-  //     const data = await response.json();
-  //     console.log('Registration successful:', data.message);
-  //   } catch (error) {
-  //     console.error('Error during registration:', error.message);
-  //   }
-  // };
   return (
-    <div className="hero bg-primaryColor min-h-screen">
-      <div className="flex justify-center items-center lg:w-[700px] h-full">
+    <div className="hero bg-primaryColor min-h-screen ">
+      <div className="flex justify-center items-center lg:w-[700px] h-full ">
         <div className="card border shrink-0 shadow-2xl min-w-[300px] w-full min-h-[400px] h-auto">
           <form className="card-body" onSubmit={handleSubmit}>
             <h1 className="text-3xl text-lightText font-bodyFont font-semibold">
@@ -93,6 +77,7 @@ const Register = () => {
                 className="input input-bordered"
                 required
               />
+           <span className="text-red-700">   {error}</span>
             </div>
             <div className="form-control">
               <label className="label">
@@ -127,6 +112,7 @@ const Register = () => {
                 Registration
               </button>
             </div>
+          <h1 className="text-white text-center p-2">Already An Account ? <Link to='/login' className="btn-link text-blue-700 font-bodyFont font-semibold">Login</Link> </h1>
           </form>
         </div>
       </div>
