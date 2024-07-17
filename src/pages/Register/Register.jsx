@@ -32,7 +32,7 @@ const Register = () => {
     }
 
     try {
-      axiosCommon.post("/users", formData);
+      axiosCommon.post("/register", formData);
     } catch (err) {
       console.log(err);
     }
